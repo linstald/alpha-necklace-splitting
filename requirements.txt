@@ -2,3 +2,4 @@ networkx
 tqdm
 sympy
 pulp
+pydot

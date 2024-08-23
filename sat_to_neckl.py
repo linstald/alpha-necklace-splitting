@@ -1,5 +1,6 @@
 import random
 import string
+import sys
 
 # This script is an implementation of the 3SAT to alpha-Necklace-Deciding reduction used to show NP-hardness.
 # It reduces a 3SAT instance PHI to a necklace.
@@ -7,7 +8,52 @@ import string
 # The 3SAT instance, a list of clauses, each containing exactly three different variables
 # Each clause is given by a set of three numbers.
 # Each number represents a variable, negative numbers mean as a negative literal (positive numbers are positive literals)
-PHI = [{1, -2, 3}, {4, -3, 1}]  # {2, -1, 3},
+
+
+usage = f"""
+3SAT-to-Necklace Reduction
+--------------------------
+Usage: 
+
+    python {__file__} [clause1] [clause2] ... [clauseN]
+
+    Arguments:
+    clause1...clauseN:      The clauses representing the 3SAT instance to reduce to a alpha-Necklace Splitting instance.
+                            Each clause is a list of three integers, where the absolute value of an integer determines the variable.
+                            The sign of the integer determines, whether the variable is a positive or negative literal within that clause.
+
+    Flags:
+    --help, -h:     print this help message and exit
+
+Description:
+
+    This program reduces a 3SAT instance to an alpha-Necklace-Splitting instance.
+    It will provide the necklace and the alpha-vector of the obtained instance.
+
+Example:
+
+    python {__file__} 1,-2,3 4,-3,1
+
+Represents the 3SAT instance (x | !y | z) & (w | !z | x).
+
+"""
+PHI = []
+try:
+    for num, x in enumerate(sys.argv):
+        if "-h" in x:
+            print(usage)
+            exit()
+        if num > 0:
+            PHI.append(set([int(i) for i in x.split(",")]))
+except Exception as err:
+    print("Something went wrong. Does your input have the correct format?")
+    print(err)
+    exit()
+
+if len(PHI) == 0:
+    print(usage)
+    exit()
+
 # all the variables occurring in PHI (need to take abs to account for negative literals)
 VARS = {abs(x) for y in PHI for x in y}
 
@@ -218,8 +264,8 @@ for clause in PHI:
 nlst = nlst + configPosNeg()
 
 # nlst now holds the necklace as a string
-
-print(nlst)
+print("Here is the necklace (as a list of beads): ")
 show(nlst)
-letters(nlst)
-print(getAlpha(nlst))
+alpha = getAlpha(nlst)
+print("And here is the alpha-vector: ")
+print({BEADS[i]: alpha[i] for i in alpha})

@@ -11,6 +11,13 @@ pip install -r requirements.txt
 ```
 
 ### Necklace
+A driver program can be invoked by
+```bash
+python alphacut.py
+```
+See its documentation (```python alphacut.py --help```) for how to use that program.
+
+Otherwise, you can also use our implementation of necklaces as a library.
 To use our implementation of necklaces put the `Necklace` folder in your working directory.
 Then you can use 
 ```python
@@ -42,8 +49,8 @@ See `usage.py` for a more in-depth introduction.
 
 ### sat_to_neckl.py
 `sat_to_neckl.py` contains an implementation of the reduction from 3SAT to general necklace splitting used to show NP-completeness of the latter.
-To use this reduction you can change the 3SAT instance in `sat_to_necklace.py`, given by the variable `PHI`.
-A 3SAT instance is encoded by a list of three element sets of integers, where each such set encodes a clause.
-Each variable is encoded by one natural number, where adding this number encodes the variable as a positive literal and adding it its negative integer encodes the negative literal.
-Having changed the 3SAT instance simply run ```python sat_to_neckl.py``` to get the necklace representated as a string and the corresponding alpha vector.
-Currently, the 3SAT instance encodes $\Phi = (x \lor \overline{y} \lor z) \land (w \lor \overline{z} \lor x) $.
+To see its documentation, run it as
+```bash
+python sat_to_neckl.py
+```
+You can specify the clauses of the 3SAT instance as command line arguments and the program will output a necklace and its alpha-vector obtained from the reduction.
