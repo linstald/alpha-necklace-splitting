@@ -39,12 +39,11 @@ Represents the 3SAT instance (x | !y | z) & (w | !z | x).
 """
 PHI = []
 try:
-    for num, x in enumerate(sys.argv):
+    for x in sys.argv[1:]:
         if "-h" in x:
             print(usage)
             exit()
-        if num > 0:
-            PHI.append(set([int(i) for i in x.split(",")]))
+        PHI.append(set([int(i) for i in x.split(",")]))
 except Exception as err:
     print("Something went wrong. Does your input have the correct format?")
     print(err)

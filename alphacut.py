@@ -55,7 +55,7 @@ def solve(neckl, alpha):
         print(f"An unexpected error occurred: {err}")
 
 
-for x in sys.argv:
+for x in sys.argv[1:]:
     if "-h" in x:
         print(usage)
         exit()
